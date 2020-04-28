@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+\title{Machine Learning\\ Homework 2}
+\author{Due on April 21, 2020}
+\date{}
+\usepackage{graphicx}
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+
+%
+%\item The following table gives 10-fold cross-validation testing accuracy results:
+%\begin{table*}[h]
+%\normalsize
+%\begin{center}
+%\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|} \hline \hline
+%{\bf fold}& 1 &2 &3 &4 &5 &6 &7 &8 &9 &10 \\
+%\hline {\bf Method A} & 84\%& 88\%& 76\%& 86\%& 85\% & 90\%& 72\%
+%& 87\% & 77\% &82\% \\ \hline {\bf Method B} & 72\%& 84\%& 82\%&
+%80\%& 81\% & 80\%& 70\% & 84\% & 75\% &78\% \\ \hline
+%\end{tabular}
+%\end{center}
+%\end{table*}
+%\begin{description}
+%\item [(a)] Can you conclude that the Method A is better than Method B with 95\% confidence level?
+%\item[(b)] Can you conclude that the Method A is better than Method B with 90\% confidence level?
+%\end{description}
+
+\item Let the sequence P, P, P, P, N, P, P, N, P, N, P, N, P, N, N, N, N,
+P, N, N be the sorted result according to the {\em posterior
+probability} being a positive instance. Please find the AUC value
+for this ranking result. (10 \%)
+%\newpage
+%\ \\
+%\item Prove that for any matrix $B \in R^{m \times n}$, either the system ({\bf I})
+%\[B{\bf x} < {\bf 0} \]
+%or the system ({\bf II})
+%\[B^{\top} {\bf \alpha}= {\bf 0} ~ , {\bf \alpha} \ge {\bf 0} ~ \mbox{and} ~ {\bf \alpha} \ne {\bf 0} \]
+%has a solution but {\em never both}. (20 \%)\ \\
+%Hint 1: $B{\bf x} < {\bf 0}$ if and only if $ B{\bf x}+{\bf 1}z \le {\bf 0}, z >0.$ \ \\
+%Hint 2: Use Farkas' Lemma with a suitable $b \in R^{n+1}$ and  $A \in R^{m \times (n+1)}$
+\ \\
+%\newpage
+\item
+\begin{description}
+\item[(a)] Solve \[\min_{{\bf x}\in R^2}\ \  \frac{1}{2}{\bf x}^{\top}\left[\begin{array}{cc}
+1&0\\
+0&1000
+\end{array}\right] {\bf x}\] using the {\em steep descent with exact line
+ search}. You are welcome to copy the MATLAB code from my slides.
+ Start your code with the initial point ${\bf x}^0=[1000 \  1]^ {\top}$. Stop
+ until $\|{\bf x}^{n+1} -{\bf x}^{n}\|_2 < 10^{-8}.$ Report your solution and
+ the number of iteration. (10 \%) \ \\
+\item[(b)] Implement the Newton's method for minimizing a quadratic
+ function $f(x)=\frac{1}{2} {\bf x}^{\top}Q {\bf x}+p^{\top}x$ in MATLAB code. Apply your
+ code to solve the minimization problem in {\bf (a)}.(10 \%)
+\end{description}
+\newpage
+
+\item
+Let $\displaystyle{S=\{({\bf x}^i, y_i)\}_{i=1}^\ell \subseteq R^n
+\times \{-1,1\}}$ be a non-trivial training set. The Perceptron
+Algorithm in {\em dual form} is given as follows:
+\begin{verse}
+Given a training set $S$ \\
+\begin{verse}
+${\bf \alpha} \longleftarrow {\bf 0}$ and $b \longleftarrow 0$ \\ 
+$L \longleftarrow \displaystyle{\max_{1 \le i \le \ell} \|{\bf x}^i\|_2}$ \\
+Repeat
+\begin{verse}
+for $i=1 \ to \  \ell$\\
+\begin{verse}
+if \ $\displaystyle{y_i(\sum_{j=1}^\ell \alpha_jy_j\langle {\bf x}^i,
+{\bf x}^j \rangle +b)} \le 0$ then \\
+\begin{verse}
+$\alpha_i \longleftarrow \alpha_i +1$ \\
+$b \longleftarrow b+y_iL^2$
+\end{verse}
+\end{verse}
+\  \ \  end if\\
+end for
+\end{verse}
+end for
+\end{verse}
+\ \ \ \ \ until no mistakes made within the {\em for} loop \\
+return $({\mathbf \alpha}, b)$ and define the linear classifier\\
+$\displaystyle{f(x)= \sum_{i=1}^\ell \alpha_i y_i\langle {\bf x}^i,
+{\bf x} \rangle +b}$
+\end{verse}
+
+Suppose that the input training set $S$ is linearly separable.
+\begin{description}
+\item [(a)] What are the meanings of the output $\alpha_i$ and the $1$-norm of
+${\bf \alpha}$? $(10 \%)$
+\item[(b)] Why the updating rule is effective? $(10 \%)$
+\end{description}
+\newpage
+\item Let $A_ + =\{(0, 0), (0.5, 0), (0, 0.5), (-0.5, 0), (0,-0.5)\}$ and \\ $A_{-}=\{(0.5, 0.5), (0.5,
+-0.5), (-0.5, 0.5), (-0.5,-0.5), (1, 0),\\ (0, 1), (-1, 0),(0,-1)\}$. (50 \%)\ \\
+\begin{description}
+\item[(a)] Try to find the hypothesis $h({\bf x})$ by implementing the Perceptron algorithm in the {\em dual form} and replacing the inner product \[<x^i, x^j> ~ \mbox{by} ~ <x^i, x^j>^2, ~ \mbox{and} ~ L=\max_{1 \le i \le \ell} \|x^i \|_2^2\] 
+\item[(b)] Generate 10,000 points in the box $[-1.5, 1.5] \times [-1.5, 1.5]$ randomly as a test set. Plug these points into the hypothesis that you got in {\bf (a)} and then plot the points for which $h(x) > 0$ with $‘+’$.
+\ \\
+\item[(c)] Repeat {\bf (a)} and {\bf (b)} by using the training data \[B_ + =\{(0.5, 0), (0, 0.5), (-0.5, 0), (0,-0.5)\} ~\mbox{and}\] \[B_{-}=\{(0.5, 0.5), (0.5,
+-0.5), (-0.5, 0.5), (-0.5,-0.5)\}.\] \\
+\item[(d)] Let the nonlinear mapping $\phi : R^2 \rightarrow R^4$ defined by
+\[ \phi({\bf x})= [-x_1x_2,~  x_1^2,~  x_1x_2,~  x_2^2~] \]
+Map the training data $A_+$ and $A_-$ into the feature space using
+this nonlinear map. Find the hypothesis $f(x)$ by implementing the Perceptron algorithm in the {\em primal form} in the feature space.\ \\
+\item[(e)] Repeat {\bf (b)} by using the hypothesis that you got in {\bf (d)}. Please
+know that you need to map the points randomly generated in {\bf (b)}
+by the nonlinear mapping $\phi$ first.
+
+\end{description}
+%\newpage
+%
+%\item Find an approximate solution using MATLAB to the following system by minimizing $\|Ax-b\|_p$ for $p=1, 2, \infty$. Write down both the approximate solution, and the value of the $\|Ax-b\|_p$. Draw the solution points in $R^2$ and the four equations being solved.\[\begin{array}{rcrcr}
+%x_1&+&2x_2&=&2\\
+%2x_1&-&x_2&=&-2\\
+%x_1&+&x_2&=&3\\
+%4x_1&-&x_2&=&-4\\
+%\end{array}\]
+%(25 \%)
+%\item Model the problem of finding the smallest ball that contains a given set $S=\{x^1,x^2, \ldots,x^k \}\subseteq R^n$ as an optimization problem.
+
+\end{enumerate}
+\end{document}
